@@ -13,16 +13,16 @@ void setup() {
     pinMode(LED_PIN, OUTPUT);
     digitalWrite(LED_PIN, LOW);
 
-    wifiBaslat(ssid, password);
-    wifiBilgiYazdir();
+    wifiStart(ssid, password);
+    wifiPrintInfo();
 
-    dnsBaslat(WiFi.softAPIP());
-    serverBaslat();
+    dnsStart(WiFi.softAPIP());
+    serverStart();
 
-    Serial.println("Sistem basladi!");
+    Serial.println("System started!");
 }
 
 void loop() {
-    dnsIsle();
+    dnsProcess();
     server.handleClient();
 }

@@ -1,95 +1,98 @@
-# 🔥 ESP32 LED WiFi Kontrol
+# ESP32 LED WiFi Control
 
-ESP32 ile kendi WiFi ağını oluşturup, telefondan LED kontrolü.
+ESP32-based WiFi Access Point with captive portal for LED control from your phone.
 
-## 🚀 Özellikler
+## Features
 
-- **WiFi Access Point** — Kendi ağını kurar
-- **Captive Portal** — Telefona otomatik sayfa açtırır
-- **Web Arayüzü** — HTML/CSS ile modern görünüm
-- **LED Kontrolü** — Aç/Kapa butonları
+- **WiFi Access Point** — Creates its own network
+- **Captive Portal** — Auto-opens page on phone
+- **Web Interface** — Modern HTML/CSS UI
+- **LED Control** — On/Off buttons
 
-## 🛠️ Donanım
+## Hardware
 
-| Bileşen | Model |
-|---------|-------|
-| Mikrodenetleyici | ESP32-DevKit |
-| LED | Dahili GPIO2 |
+| Component | Model |
+|-----------|-------|
+| Microcontroller | ESP32-DevKit |
+| LED | Built-in GPIO2 |
 
-## 📁 Proje Yapısı
+## Project Structure
 
 src/
-├── main.cpp              # Ana program
-├── wifi_manager.cpp/h    # WiFi yönetimi
-├── web_server.cpp/h      # HTTP sunucusu
-├── html_page.cpp/h       # HTML sayfası
+├── main.cpp              # Main program
+├── wifi_manager.cpp/h    # WiFi management
+├── web_server.cpp/h      # HTTP server
+├── html_page.cpp/h       # HTML page
 ├── dns_captive.cpp/h     # DNS portal
-└── pin_config.h          # Pin tanımlamaları
-plain
+└── pin_config.h          # Pin definitions
 
 
-## ⚡ Kurulum
+## Setup
 
-### Gereksinimler
+### Requirements
 
 - Debian 13 / KDE
 - Python 3 + venv
-- Neovim (LazyVim) — Opsiyonel
+- Neovim (LazyVim) — Optional
 
-### PlatformIO Kurulumu
+### PlatformIO Installation
 
 ```bash
-# Sanal ortam
+# Virtual environment
 python3 -m venv ~/platformio/venv
 source ~/platformio/venv/bin/activate
 
 # PlatformIO
 pip install platformio
 
-# Projeyi derle
+# Build project
 cd ~/Arduino/platformio
 pio run
 
-# ESP32'ye yükle
+# Upload to ESP32
 pio run -t upload
 
-# Seri monitör
+# Serial monitor
 pio device monitor
+```
 
-📡 Kullanım
+## Usage
 
-    ESP32'yi USB ile bağla
-    pio run -t upload ile yükle
-    Telefondan WiFi'ye bağlan:
-        SSID: ESP32_WiFi
-        Şifre: 12345678
-    Tarayıcı otomatik açılır (veya 192.168.4.1 gir)
+1. Connect ESP32 via USB
+2. Upload with `pio run -t upload`
+3. Connect your phone to WiFi:
+   - SSID: `ESP32_WiFi`
+   - Password: `12345678`
+4. Browser opens automatically (or go to `192.168.4.1`)
 
-🖥️ Ekran Görüntüsü
-plain
+## Screenshot
 
+```
 ┌─────────────────────────┐
-│    🔥 ESP32 LED Kontrol  │
+│   🔥 ESP32 LED Control   │
 │                         │
-│    LED: AÇIK 💡         │
+│   LED: ON 💡            │
 │                         │
 │  ┌────────┐ ┌────────┐  │
-│  │ LED AÇ │ │LED KAPAT│  │
+│  │ LED ON │ │LED OFF │  │
 │  └────────┘ └────────┘  │
 └─────────────────────────┘
+```
 
-🔧 Geliştirme
-Table
-Komut	Açıklama
-pio run	Derle
-pio run -t upload	Yükle
-pio run -t clean	Temizle
-pio device monitor	Seri port izle
-📝 Notlar
+## Development
 
-    İlk derleme ~300 MB araç indirir (bir kerelik)
-    99-platformio-udev.rules kurulumu için: PlatformIO Docs
+| Command | Description |
+|---------|-------------|
+| `pio run` | Build |
+| `pio run -t upload` | Upload |
+| `pio run -t clean` | Clean |
+| `pio device monitor` | Serial monitor |
 
-📜 Lisans
+## Notes
+
+- First build downloads ~300 MB of tools (one-time)
+- For `99-platformio-udev.rules` setup: PlatformIO Docs
+
+## License
+
 MIT
-EOF

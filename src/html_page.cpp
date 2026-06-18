@@ -1,8 +1,8 @@
 #include "html_page.h"
 
-String getHTML(bool ledDurum) {
-    String durumRenk = ledDurum ? "#00ff88" : "#ff4444";
-    String durumYazi = ledDurum ? "ACIK 💡" : "KAPALI ⚫";
+String getHTML(bool ledState) {
+    String stateColor = ledState ? "#00ff88" : "#ff4444";
+    String stateText = ledState ? "ON 💡" : "OFF ⚫";
     
     return R"(
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ String getHTML(bool ledDurum) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESP32 Kontrol</title>
+    <title>ESP32 Control</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -25,16 +25,16 @@ String getHTML(bool ledDurum) {
             align-items: center;
         }
         h1 { margin-bottom: 30px; font-size: 28px; }
-        .durum { 
+        .status { 
             font-size: 20px; 
             margin-bottom: 30px;
             padding: 15px 30px;
             border-radius: 10px;
-            background: )" + durumRenk + R"(;
+            background: )" + stateColor + R"(;
             color: #1a1a2e;
             font-weight: bold;
         }
-        .butonlar { display: flex; gap: 20px; }
+        .buttons { display: flex; gap: 20px; }
         a { text-decoration: none; }
         button {
             font-size: 22px;
@@ -46,16 +46,16 @@ String getHTML(bool ledDurum) {
             transition: transform 0.2s;
         }
         button:hover { transform: scale(1.05); }
-        .ac { background: #00ff88; color: #1a1a2e; }
-        .kapat { background: #ff4444; color: white; }
+        .on { background: #00ff88; color: #1a1a2e; }
+        .off { background: #ff4444; color: white; }
     </style>
 </head>
 <body>
-    <h1>🔥 ESP32 LED Kontrol</h1>
-    <div class="durum">LED: )" + durumYazi + R"(</div>
-    <div class="butonlar">
-        <a href="/led/ac"><button class="ac">LED AÇ</button></a>
-        <a href="/led/kapat"><button class="kapat">LED KAPAT</button></a>
+    <h1>🔥 ESP32 LED Control</h1>
+    <div class="status">LED: )" + stateText + R"(</div>
+    <div class="buttons">
+        <a href="/led/on"><button class="on">LED ON</button></a>
+        <a href="/led/off"><button class="off">LED OFF</button></a>
     </div>
 </body>
 </html>

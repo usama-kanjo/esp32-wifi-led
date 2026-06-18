@@ -5,7 +5,7 @@
 
 extern DNSServer dnsServer;
 
-void dnsBaslat(IPAddress ip);
-void dnsIsle();
+void dnsStart(IPAddress ip);
+void dnsProcess();
 
 #endif

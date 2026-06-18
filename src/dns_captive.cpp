@@ -2,10 +2,10 @@
 
 DNSServer dnsServer;
 
-void dnsBaslat(IPAddress ip) {
+void dnsStart(IPAddress ip) {
     dnsServer.start(53, "*", ip);
 }
 
-void dnsIsle() {
+void dnsProcess() {
     dnsServer.processNextRequest();
 }

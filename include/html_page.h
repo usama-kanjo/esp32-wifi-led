@@ -3,6 +3,6 @@
 
 #include <Arduino.h>
 
-String getHTML(bool ledDurum);
+String getHTML(bool ledState);
 
 #endif

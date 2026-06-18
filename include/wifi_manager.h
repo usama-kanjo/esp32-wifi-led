@@ -3,7 +3,7 @@
 
 #include <WiFi.h>
 
-void wifiBaslat(const char* ssid, const char* password);
-void wifiBilgiYazdir();
+void wifiStart(const char* ssid, const char* password);
+void wifiPrintInfo();
 
 #endif

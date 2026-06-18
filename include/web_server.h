@@ -4,14 +4,14 @@
 #include <WebServer.h>
 
 extern WebServer server;
-extern bool ledDurum;
+extern bool ledState;
 
-void serverBaslat();
-void serverRotalariEkle();
+void serverStart();
+void serverSetupRoutes();
 
-void anaSayfa();
-void ledAc();
-void ledKapat();
+void handleRoot();
+void ledOn();
+void ledOff();
 void handleCaptivePortal();
 void handleNotFound();
 
