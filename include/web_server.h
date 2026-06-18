@@ -12,6 +12,9 @@ void serverSetupRoutes();
 void handleRoot();
 void ledOn();
 void ledOff();
+void handleEffect();
+void handleToggle();
+void handleSetLang();
 void handleCaptivePortal();
 void handleNotFound();
 

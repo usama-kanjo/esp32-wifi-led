@@ -3,15 +3,17 @@
 #include "web_server.h"
 #include "dns_captive.h"
 #include "pin_config.h"
+#include "led_effects.h"
+#include "button.h"
 
 const char* ssid = "ESP32_WiFi";
 const char* password = "12345678";
 
 void setup() {
     Serial.begin(115200);
-    
-    pinMode(LED_PIN, OUTPUT);
-    digitalWrite(LED_PIN, LOW);
+
+    ledEffectsSetup();
+    buttonSetup();
 
     wifiStart(ssid, password);
     wifiPrintInfo();
@@ -23,6 +25,8 @@ void setup() {
 }
 
 void loop() {
+    buttonLoop();
+    ledEffectsLoop();
     dnsProcess();
     server.handleClient();
 }
