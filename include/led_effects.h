@@ -24,5 +24,6 @@ bool getLedState();
 uint8_t getBrightness();
 const char* getEffectName(Effect effect);
 const char* getEffectNameTr(Effect effect);
+const char* getEffectNameAr(Effect effect);
 
 #endif

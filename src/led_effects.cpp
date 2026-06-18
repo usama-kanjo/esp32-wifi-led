@@ -27,6 +27,15 @@ static const char* const effectNamesTr[EFFECT_COUNT] = {
     "Nefes"
 };
 
+static const char* const effectNamesAr[EFFECT_COUNT] = {
+    "ثابت",
+    "وميض",
+    "وميض سريع",
+    "تلاشي تدريجي",
+    "إطفاء تدريجي",
+    "تنفس"
+};
+
 void ledEffectsSetup() {
     ledcSetup(PWM_CHANNEL, PWM_FREQ, PWM_RES);
     ledcAttachPin(LED_PIN, PWM_CHANNEL);
@@ -73,6 +82,11 @@ const char* getEffectName(Effect effect) {
 const char* getEffectNameTr(Effect effect) {
     if (effect >= EFFECT_COUNT) return "";
     return effectNamesTr[effect];
+}
+
+const char* getEffectNameAr(Effect effect) {
+    if (effect >= EFFECT_COUNT) return "";
+    return effectNamesAr[effect];
 }
 
 void ledEffectsLoop() {

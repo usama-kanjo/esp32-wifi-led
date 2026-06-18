@@ -12,6 +12,7 @@ static const char* langDir(Lang lang) {
 
 static const char* effectName(Lang lang, Effect effect) {
     if (lang == LANG_TR) return getEffectNameTr(effect);
+    if (lang == LANG_AR) return getEffectNameAr(effect);
     return getEffectName(effect);
 }
 
