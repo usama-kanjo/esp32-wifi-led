@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-enum Lang { LANG_EN, LANG_TR, LANG_COUNT };
+enum Lang { LANG_EN, LANG_TR, LANG_AR, LANG_COUNT };
 
 enum StrId {
     S_TITLE,
@@ -17,6 +17,7 @@ enum StrId {
     S_TOGGLE_BTN,
     S_LANG_TR,
     S_LANG_EN,
+    S_LANG_AR,
     S_COUNT
 };
 

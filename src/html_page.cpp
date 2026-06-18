@@ -1,7 +1,21 @@
 #include "html_page.h"
 
+static const char* langCode(Lang lang) {
+    if (lang == LANG_TR) return "tr";
+    if (lang == LANG_AR) return "ar";
+    return "en";
+}
+
+static const char* langDir(Lang lang) {
+    return (lang == LANG_AR) ? "rtl" : "ltr";
+}
+
+static const char* effectName(Lang lang, Effect effect) {
+    if (lang == LANG_TR) return getEffectNameTr(effect);
+    return getEffectName(effect);
+}
+
 String getHTML(bool ledOn, Effect effect, uint8_t brightness, Lang lang) {
-    bool isEn = (lang == LANG_EN);
     String stateText = ledOn ? langStr(S_ON, lang) : langStr(S_OFF, lang);
     String stateColor = ledOn ? "#00e676" : "#ff5252";
     String statusStr = String(langStr(S_LED_STATUS, lang));
@@ -9,7 +23,9 @@ String getHTML(bool ledOn, Effect effect, uint8_t brightness, Lang lang) {
 
     String e;
     e += F("<!DOCTYPE html><html lang=\"");
-    e += isEn ? "en" : "tr";
+    e += langCode(lang);
+    e += F("\" dir=\"");
+    e += langDir(lang);
     e += F("\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\"><title>ESP32</title><style>");
     e += F("*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}");
     e += F(":root{--bg:#0f0f1a;--card:#1a1a2e;--card-hover:#222244;--accent:#00e676;--danger:#ff5252;--text:#e0e0e0;--text-dim:#888;--radius:16px;--shadow:0 8px 32px rgba(0,0,0,0.4)}");
@@ -45,6 +61,9 @@ String getHTML(bool ledOn, Effect effect, uint8_t brightness, Lang lang) {
     e += F(".lang-btn{padding:8px 16px;border:1px solid #333;border-radius:20px;background:transparent;color:var(--text-dim);font-size:13px;cursor:pointer;transition:all .2s;text-decoration:none}");
     e += F(".lang-btn:hover{background:var(--card-hover);color:var(--text);border-color:#555}");
     e += F(".lang-btn.active{background:color-mix(in srgb,var(--accent)15%,transparent);color:var(--accent);border-color:var(--accent)}");
+    e += F("[dir=rtl] .card{direction:rtl}");
+    e += F("[dir=rtl] .status{direction:ltr;unicode-bidi:embed}");
+    e += F("[dir=rtl] .btn-row{direction:ltr;justify-content:center}");
     e += F("</style></head><body><div class=\"card\"><h1>🔥 ");
     e += langStr(S_TITLE, lang);
     e += F("</h1><div class=\"status\"><span class=\"indicator\"></span>");
@@ -60,7 +79,7 @@ String getHTML(bool ledOn, Effect effect, uint8_t brightness, Lang lang) {
     e += F("</label><div class=\"effect-grid\">");
 
     for (int i = 0; i < EFFECT_COUNT; i++) {
-        String name = isEn ? getEffectName((Effect)i) : getEffectNameTr((Effect)i);
+        String name = effectName(lang, (Effect)i);
         e += "<a href=\"/effect?id=" + String(i) + "\" class=\"effect-btn" + String(i == (int)effect ? " active" : "") + "\">" + name + "</a>";
     }
 
@@ -70,10 +89,12 @@ String getHTML(bool ledOn, Effect effect, uint8_t brightness, Lang lang) {
     e += langStr(S_LED_OFF_BTN, lang);
     e += F("</a><a href=\"/led/toggle\" class=\"btn btn-toggle\">⚡</a></div>");
     e += F("<div class=\"lang-row\"><a href=\"/?lang=en\" class=\"lang-btn");
-    e += isEn ? " active" : "";
+    e += String(lang == LANG_EN ? " active" : "");
     e += F("\">EN</a><a href=\"/?lang=tr\" class=\"lang-btn");
-    e += !isEn ? " active" : "";
-    e += F("\">TR</a></div></div></body></html>");
+    e += String(lang == LANG_TR ? " active" : "");
+    e += F("\">TR</a><a href=\"/?lang=ar\" class=\"lang-btn");
+    e += String(lang == LANG_AR ? " active" : "");
+    e += F("\">AR</a></div></div></body></html>");
 
     return e;
 }

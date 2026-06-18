@@ -12,6 +12,7 @@ void handleRoot() {
     if (server.hasArg("lang")) {
         String l = server.arg("lang");
         if (l == "tr") lang = LANG_TR;
+        else if (l == "ar") lang = LANG_AR;
         else if (l == "en") lang = LANG_EN;
     }
     server.send(200, "text/html", getHTML(getLedState(), getCurrentEffect(), getBrightness(), lang));

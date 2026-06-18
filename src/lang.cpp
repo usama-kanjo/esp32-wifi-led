@@ -14,7 +14,8 @@ static const char* const strings[LANG_COUNT][S_COUNT] = {
         "Brightness",
         "Toggle",
         "Türkçe",
-        "English"
+        "English",
+        "العربية"
     },
     {
         "ESP32 LED Kontrol",
@@ -27,7 +28,22 @@ static const char* const strings[LANG_COUNT][S_COUNT] = {
         "Parlaklık",
         "Aç/Kapa",
         "Türkçe",
-        "English"
+        "English",
+        "العربية"
+    },
+    {
+        "التحكم في LED ESP32",
+        "LED: %s",
+        "تشغيل",
+        "إطفاء",
+        "تشغيل LED",
+        "إطفاء LED",
+        "التأثير: %s",
+        "السطوع",
+        "عكس",
+        "Türkçe",
+        "English",
+        "العربية"
     }
 };
 
@@ -37,9 +53,8 @@ const char* langStr(byte id, Lang lang) {
 }
 
 Lang detectLang(const String& acceptLanguage) {
-    if (acceptLanguage.indexOf("tr") >= 0 || acceptLanguage.indexOf("TR") >= 0) {
-        return LANG_TR;
-    }
+    if (acceptLanguage.indexOf("ar") >= 0) return LANG_AR;
+    if (acceptLanguage.indexOf("tr") >= 0) return LANG_TR;
     return LANG_EN;
 }
 
