@@ -1,0 +1,20 @@
+# PlatformIO
+.pio/
+.vscode/
+.clang_complete
+.gcc-flags.json
+
+# Derleme çıktıları
+*.o
+*.elf
+*.bin
+*.hex
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+
+# Geçici dosyalar
+*~
+*.swp
+*.swo
