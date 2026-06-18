@@ -7,6 +7,14 @@
 
 WebServer server(80);
 
+static String redirectLang() {
+    if (server.hasArg("lang")) {
+        String l = server.arg("lang");
+        if (l == "tr" || l == "ar") return "?lang=" + l;
+    }
+    return "";
+}
+
 void handleRoot() {
     Lang lang = detectLang(server.header("Accept-Language"));
     if (server.hasArg("lang")) {
@@ -20,19 +28,19 @@ void handleRoot() {
 
 void ledOn() {
     setLedState(true);
-    server.sendHeader("Location", "/");
+    server.sendHeader("Location", "/" + redirectLang());
     server.send(302, "text/plain", "Redirecting...");
 }
 
 void ledOff() {
     setLedState(false);
-    server.sendHeader("Location", "/");
+    server.sendHeader("Location", "/" + redirectLang());
     server.send(302, "text/plain", "Redirecting...");
 }
 
 void handleToggle() {
     toggleLed();
-    server.sendHeader("Location", "/");
+    server.sendHeader("Location", "/" + redirectLang());
     server.send(302, "text/plain", "Redirecting...");
 }
 
@@ -49,7 +57,7 @@ void handleEffect() {
             setBrightness((uint8_t)bri);
         }
     }
-    server.sendHeader("Location", "/");
+    server.sendHeader("Location", "/" + redirectLang());
     server.send(302, "text/plain", "Redirecting...");
 }
 

@@ -21,6 +21,11 @@ String getHTML(bool ledOn, Effect effect, uint8_t brightness, Lang lang) {
     String statusStr = String(langStr(S_LED_STATUS, lang));
     statusStr.replace("%s", stateText);
 
+    String langQuery = "";
+    String langAmp = "";
+    if (lang == LANG_TR) { langQuery = "?lang=tr"; langAmp = "&lang=tr"; }
+    else if (lang == LANG_AR) { langQuery = "?lang=ar"; langAmp = "&lang=ar"; }
+
     String e;
     e += F("<!DOCTYPE html><html lang=\"");
     e += langCode(lang);
@@ -74,20 +79,28 @@ String getHTML(bool ledOn, Effect effect, uint8_t brightness, Lang lang) {
     e += String(brightness);
     e += F("\" oninput=\"fetch('/effect?id=");
     e += String((int)effect);
-    e += F("&bri='+this.value)\"></div><div class=\"section\"><label>");
+    e += F("&bri='+this.value");
+    e += langAmp;
+    e += F(")\"></div><div class=\"section\"><label>");
     e += langStr(S_EFFECT, lang);
     e += F("</label><div class=\"effect-grid\">");
 
     for (int i = 0; i < EFFECT_COUNT; i++) {
         String name = effectName(lang, (Effect)i);
-        e += "<a href=\"/effect?id=" + String(i) + "\" class=\"effect-btn" + String(i == (int)effect ? " active" : "") + "\">" + name + "</a>";
+        e += "<a href=\"/effect?id=" + String(i) + langAmp + "\" class=\"effect-btn" + String(i == (int)effect ? " active" : "") + "\">" + name + "</a>";
     }
 
-    e += F("</div></div><div class=\"btn-row\"><a href=\"/led/on\" class=\"btn btn-on\">");
+    e += F("</div></div><div class=\"btn-row\"><a href=\"/led/on");
+    e += langQuery;
+    e += F("\" class=\"btn btn-on\">");
     e += langStr(S_LED_ON_BTN, lang);
-    e += F("</a><a href=\"/led/off\" class=\"btn btn-off\">");
+    e += F("</a><a href=\"/led/off");
+    e += langQuery;
+    e += F("\" class=\"btn btn-off\">");
     e += langStr(S_LED_OFF_BTN, lang);
-    e += F("</a><a href=\"/led/toggle\" class=\"btn btn-toggle\">⚡</a></div>");
+    e += F("</a><a href=\"/led/toggle");
+    e += langQuery;
+    e += F("\" class=\"btn btn-toggle\">⚡</a></div>");
     e += F("<div class=\"lang-row\"><a href=\"/?lang=en\" class=\"lang-btn");
     e += String(lang == LANG_EN ? " active" : "");
     e += F("\">EN</a><a href=\"/?lang=tr\" class=\"lang-btn");
